@@ -13,10 +13,8 @@ data Token = StringLiteral String deriving Show
 name :: P.Stream s m Char => P.ParsecT s u m String
 name = do
     start <- P.letter
-    rest <- P.many P.alphaNum
+    rest <- P.many P.alpha Num
     return $ [start]++rest
-
-
 
 
 parse :: String -> IO ()
