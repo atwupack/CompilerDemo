@@ -1,7 +1,9 @@
 {-# LANGUAGE FlexibleContexts #-}
 
-module Lexer 
-    (parse) where
+module Lexer (
+    tokenizeFile,
+    Token
+) where
 
 import qualified Text.Parsec as P
 import qualified Text.Parsec.ByteString as PS
@@ -31,7 +33,6 @@ keyword (Keyword n t) = do
 -- Parse any keyword
 anyKeyword :: P.Stream s m Char => P.ParsecT s u m Token
 anyKeyword = P.choice $ map keyword allKeywords
-    
 
 -- Parse a name
 -- name := letter alphaNum*
@@ -70,5 +71,5 @@ token = do
 tokenize :: P.Stream s m Char => P.ParsecT s u m [Token]
 tokenize = P.many token
 
-parse :: String -> IO (Either P.ParseError [Token]) 
-parse f = PS.parseFromFile tokenize f
+tokenizeFile :: String -> IO (Either P.ParseError [Token]) 
+tokenizeFile f = PS.parseFromFile tokenize f
