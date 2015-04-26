@@ -2,4 +2,4 @@ module Main where
 
 import Lexer
 
-main = parse "Test  "
+main = parse "testfunc : (p1 : Int) -> Int"
